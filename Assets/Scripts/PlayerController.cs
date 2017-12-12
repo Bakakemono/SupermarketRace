@@ -6,11 +6,13 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Move")]
     [SerializeField]
-    private float PlayerAcceleration;
+    private float PlayerAccelerationForce;
     [SerializeField]
-    private float playerMoveSpeed;
+    private float playerLateralMoveSpeed;
     [SerializeField]
     private float playerMaxSpeed;
+    [SerializeField]
+    private float playerForceDrag;
 
     private Rigidbody rigid;
     
@@ -31,13 +33,17 @@ public class PlayerController : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
 
         // Récupération des touches haut et bas
-            acceleration.z += verticalInput * PlayerAcceleration;
+        if(verticalInput >= 0)
+            acceleration.z += verticalInput * PlayerAccelerationForce;
+
+        if (verticalInput < 0)
+            acceleration.z += verticalInput * playerForceDrag;
 
         // Récupération des touches gauche et droite
-            move.x += horizontalInput*playerMoveSpeed;
+        move.x += horizontalInput*playerLateralMoveSpeed;
 
         // On applique le mouvement à l'objet
-        if (rigid.velocity.z <= playerMaxSpeed)
+        if (rigid.velocity.z <= playerMaxSpeed && rigid.velocity.z >= 0)
         {
             rigid.AddForce(acceleration, ForceMode.Acceleration);
         }
