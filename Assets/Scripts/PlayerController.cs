@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     private float playerForceDrag;
 
     private Rigidbody rigid;
+
+    public float speed;
     
 
     // Use this for initialization
@@ -26,6 +28,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        speed = rigid.velocity.z;
         // Création d'un nouveau vecteur de déplacement
         Vector3 acceleration = new Vector3();
         Vector3 move = new Vector3();
