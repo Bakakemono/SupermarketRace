@@ -5,9 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - BeginRightTurn
-  - BeginLeftTrun
   - EndRightTurn
   - EndLeftTurn
+  - BeginLeftTurn
   layers:
   - Default
   - TransparentFX

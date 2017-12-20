@@ -60,17 +60,17 @@ public class PlayerController : MonoBehaviour
         if (transform.InverseTransformDirection(rigid.velocity).z <= playerMaxSpeed && transform.InverseTransformDirection(rigid.velocity).z >= 0)
         {
           
-            if (transform.InverseTransformDirection(rigid.velocity).z > 0 && rightTurn)
+            if (transform.InverseTransformDirection(rigid.velocity).z > 0 && leftTurn)
             {
-                transform.Rotate(ForceTurnRight * transform.InverseTransformDirection(rigid.velocity).z);
+                transform.Rotate(ForceTurnLeft * transform.InverseTransformDirection(rigid.velocity).z);
                 rigid.velocity = transform.forward * speed;
                 rigid.AddRelativeForce(acceleration, ForceMode.Acceleration);
                 rigid.AddRelativeForce(move, ForceMode.VelocityChange);
 
             }
-            else if (transform.InverseTransformDirection(rigid.velocity).z > 0 && leftTurn)
+            else if (transform.InverseTransformDirection(rigid.velocity).z > 0 && rightTurn)
             {
-                transform.Rotate(ForceTurnLeft * transform.InverseTransformDirection(rigid.velocity).z);
+                transform.Rotate(ForceTurnRight * transform.InverseTransformDirection(rigid.velocity).z);
                 rigid.velocity = transform.forward;
                 rigid.AddRelativeForce(acceleration, ForceMode.Acceleration);
                 rigid.AddRelativeForce(move, ForceMode.VelocityChange);
@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 rigid.AddRelativeForce(acceleration, ForceMode.Acceleration);
-                rigid.AddRelativeForce(move, ForceMode.VelocityChange);
+                rigid.AddRelativeForce(move,  ForceMode.VelocityChange);
             }
         }
         
