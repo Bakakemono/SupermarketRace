@@ -9,11 +9,11 @@ public class GameManager : MonoBehaviour {
     private Text speedText;
 
     private const string TEXT_SPEED = " km/h";
-    private PlayerController playerController;
+    private PlayerControlerTest playerController;
 
 	// Use this for initialization
 	void Start () {
-        playerController = FindObjectOfType<PlayerController>();
+        playerController = FindObjectOfType<PlayerControlerTest>();
 	}
 	
 	// Update is called once per frame
