@@ -64,7 +64,9 @@ public class PlayerControlerTest : MonoBehaviour
             //rigid.velocity = transform.forward;
             
             rigid.AddRelativeForce(acceleration, ForceMode.Acceleration);
-            transform.Rotate(ForceTurnLeft * horizontalInput);
+            
+            transform.Rotate(ForceTurnLeft * horizontalInput * ((70 - transform.InverseTransformDirection(rigid.velocity).z)/100));
+
             //rigid.AddRelativeForce(move, ForceMode.VelocityChange);
 
 
