@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerControlerTest : MonoBehaviour
 {
-
     [Header("Move")]
     [SerializeField]
     private float PlayerAccelerationForce;
@@ -19,20 +18,19 @@ public class PlayerControlerTest : MonoBehaviour
     [SerializeField]
     private Vector3 ForceTurnLeft;
 
-
-
     private Rigidbody rigid;
+    private Transform transformPlayer;
 
     public float speed;
 
     private bool rightTurn;
     private bool leftTurn;
 
-
     // Use this for initialization
     void Start()
     {
         rigid = GetComponent<Rigidbody>();
+        transformPlayer = GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -64,10 +62,8 @@ public class PlayerControlerTest : MonoBehaviour
             //rigid.velocity = transform.forward;
             
             rigid.AddRelativeForce(acceleration, ForceMode.Acceleration);
-            transform.Rotate(ForceTurnLeft * horizontalInput);
+            transform.Rotate(ForceTurnLeft * horizontalInput * Time.deltaTime);
             //rigid.AddRelativeForce(move, ForceMode.VelocityChange);
-
-
         }
     }
 
