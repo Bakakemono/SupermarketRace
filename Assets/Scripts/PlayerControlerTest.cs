@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerControlerTest : MonoBehaviour
 {
@@ -42,7 +43,7 @@ public class PlayerControlerTest : MonoBehaviour
         // Création d'un nouveau vecteur de déplacement
         Vector3 acceleration = new Vector3();
         Vector3 move = new Vector3();
-        
+
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
@@ -52,6 +53,25 @@ public class PlayerControlerTest : MonoBehaviour
 
         if (verticalInput < 0)
             acceleration.z += verticalInput * playerForceDrag;
+       /* if (horizontalInput > 0)
+        {
+
+            if (transform.rotation.y > -60 && transform.rotation.y < 60)
+            {
+                rigid.AddForce(ForceTurnLeft);
+                transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y + 60, transform.rotation.z, transform.rotation.w);
+            }
+        }
+        if (horizontalInput < 0)
+        {
+
+            if (transform.rotation.y > -60 && transform.rotation.y < 60)
+            {
+                rigid.AddForce(ForceTurnRight);
+                transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y - 60, transform.rotation.z, transform.rotation.w);
+            }
+        }*/
+
 
         // Récupération des touches gauche et droite
         move.y += horizontalInput * playerMoveSpeed;

@@ -588,6 +588,7 @@ GameObject:
   - component: {fileID: 361026550}
   - component: {fileID: 361026549}
   - component: {fileID: 361026548}
+  - component: {fileID: 361026552}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -650,13 +651,25 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 361026547}
-  m_LocalRotation: {x: 0.25303808, y: -0, z: -0, w: 0.96745634}
-  m_LocalPosition: {x: 0, y: 1.3, z: -2.5}
+  m_LocalRotation: {x: 0.06975647, y: 0, z: 0, w: 0.9975641}
+  m_LocalPosition: {x: 0, y: 2, z: -5}
   m_LocalScale: {x: 1, y: 0.62671447, z: 0.5399525}
   m_Children: []
   m_Father: {fileID: 620354391}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 29.315, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 8, y: 0, z: 0}
+--- !u!114 &361026552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 361026547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8eac10a41811544ac780326c6f92a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 620354391}
 --- !u!1001 &376784968
 Prefab:
   m_ObjectHideFlags: 0
@@ -1031,7 +1044,7 @@ MonoBehaviour:
   playerMaxSpeed: 30
   playerForceDrag: 10
   ForceTurnRight: {x: 0, y: 5, z: 0}
-  ForceTurnLeft: {x: 0, y: 5, z: 0}
+  ForceTurnLeft: {x: 0, y: -5, z: 0}
   speed: 0
 --- !u!23 &620354388
 MeshRenderer:
