@@ -62,11 +62,16 @@ public class PlayerControlerTest : MonoBehaviour
             //transform.rotation = Quaternion.Slerp(transform.rotation, Time.deltaTime * 1.0f);
             //transform.Rotate(ForceTurnRight * transform.InverseTransformDirection(rigid.velocity).z);
             //rigid.velocity = transform.forward;
-            
-            rigid.AddRelativeForce(acceleration, ForceMode.Acceleration);
-            
-            transform.Rotate(ForceTurnLeft * horizontalInput * ((70 - transform.InverseTransformDirection(rigid.velocity).z)/100));
 
+
+            if (horizontalInput != 0)
+            {
+                transform.Rotate(ForceTurnLeft * horizontalInput * ((70 - transform.InverseTransformDirection(rigid.velocity).z) / 100));
+            }
+            else
+            {
+                rigid.AddRelativeForce(acceleration, ForceMode.Acceleration);
+            }
             //rigid.AddRelativeForce(move, ForceMode.VelocityChange);
 
 
