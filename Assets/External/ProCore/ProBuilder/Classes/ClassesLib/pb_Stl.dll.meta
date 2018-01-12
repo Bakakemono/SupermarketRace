@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: dff4e5421895ed440a2e2efb410dfc9f
+guid: 1fee52a8263a2fd43a060efd3a38052c
 timeCreated: 1472839848
 licenseType: Store
 PluginImporter:
@@ -10,18 +10,6 @@ PluginImporter:
   isPreloaded: 0
   isOverridable: 0
   platformData:
-  - first:
-      '': OSXIntel
-    second:
-      enabled: 0
-      settings:
-        CPU: None
-  - first:
-      '': OSXIntel64
-    second:
-      enabled: 0
-      settings:
-        CPU: None
   - first:
       Any: 
     second:
@@ -59,6 +47,18 @@ PluginImporter:
         CPU: None
   - first:
       Standalone: LinuxUniversal
+    second:
+      enabled: 0
+      settings:
+        CPU: None
+  - first:
+      Standalone: OSXIntel
+    second:
+      enabled: 0
+      settings:
+        CPU: None
+  - first:
+      Standalone: OSXIntel64
     second:
       enabled: 0
       settings:

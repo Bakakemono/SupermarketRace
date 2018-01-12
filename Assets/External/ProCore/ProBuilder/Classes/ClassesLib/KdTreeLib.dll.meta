@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 7ec96541a6641e041a3ddd8acae79982
-timeCreated: 1494265286
+guid: e6513958acc5c334eab1db78798f0585
+timeCreated: 1494599655
 licenseType: Store
 PluginImporter:
   externalObjects: {}
@@ -10,6 +10,11 @@ PluginImporter:
   isPreloaded: 0
   isOverridable: 0
   platformData:
+  - first:
+      '': data
+    second:
+      enabled: 0
+      settings: {}
   - first:
       Any: 
     second:
