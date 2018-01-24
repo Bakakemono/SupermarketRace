@@ -15,10 +15,12 @@ public class PlayerControlerTest : MonoBehaviour
     [SerializeField]
     private float playerForceDrag;
     [SerializeField]
-    private Vector3 ForceTurnRight;
-    [SerializeField]
-    private Vector3 ForceTurnLeft;
+    private Vector3 ForceTurn;
 
+    [SerializeField]
+    public int playerLife = 10;
+
+    private int Cooldown = 0;
 
 
     private Rigidbody rigid;
@@ -28,22 +30,32 @@ public class PlayerControlerTest : MonoBehaviour
     private bool rightTurn;
     private bool leftTurn;
 
+    public float horizontalInput;
+
+    private TargetCamera Camera;
+
 
     // Use this for initialization
     void Start()
     {
         rigid = GetComponent<Rigidbody>();
+        Camera = FindObjectOfType<TargetCamera>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        Cooldown--;
+        if (Cooldown <= 0)
+        {
+            Cooldown = 0;
+        }
         speed = transform.InverseTransformDirection(rigid.velocity).z;
         // Création d'un nouveau vecteur de déplacement
         Vector3 acceleration = new Vector3();
         Vector3 move = new Vector3();
         
-        float horizontalInput = Input.GetAxis("Horizontal");
+        horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
         // Récupération des touches haut et bas
@@ -59,23 +71,63 @@ public class PlayerControlerTest : MonoBehaviour
 
         if (transform.InverseTransformDirection(rigid.velocity).z <= playerMaxSpeed /*&& transform.InverseTransformDirection(rigid.velocity).z >= 0*/)
         {
-            //transform.rotation = Quaternion.Slerp(transform.rotation, Time.deltaTime * 1.0f);
-            //transform.Rotate(ForceTurnRight * transform.InverseTransformDirection(rigid.velocity).z);
-            //rigid.velocity = transform.forward;
 
-
-            if (horizontalInput != 0)
+            if (horizontalInput != 0 && speed < 20)
             {
-                transform.Rotate(ForceTurnLeft * horizontalInput * ((70 - transform.InverseTransformDirection(rigid.velocity).z) / 100));
+                
+                    transform.Rotate(ForceTurn * horizontalInput * ((50 - transform.InverseTransformDirection(rigid.velocity).z) / 100));
+                
+                rigid.AddRelativeForce(acceleration);
+            }
+            else if (horizontalInput != 0)
+            {
+                
+                    transform.Rotate(ForceTurn * horizontalInput * ((50 - transform.InverseTransformDirection(rigid.velocity).z) / 100));
+                
             }
             else
             {
-                rigid.AddRelativeForce(acceleration, ForceMode.Acceleration);
+                rigid.AddRelativeForce(acceleration);
             }
-            //rigid.AddRelativeForce(move, ForceMode.VelocityChange);
-
-
+        }
+        
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Customer")
+        {
+            if (Cooldown == 0)
+            StartCoroutine(TakeDamage());
         }
     }
-
+    private IEnumerator TakeDamage()
+    {
+        playerLife--;
+        Cooldown = 100;
+        for (int i = 0; i < 50; i++)
+        {
+            transform.Rotate(0, 7.2f, 0);
+            yield return new WaitForSeconds(0.01f);
+        }
+        
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "CameraDown")
+        {
+            Camera.CameraPostion = 1;
+        }
+        if (other.gameObject.tag == "CameraRight")
+        {
+            Camera.CameraPostion = 2;
+        }
+        if (other.gameObject.tag == "CameraLeft")
+        {
+            Camera.CameraPostion = 3;
+        }
+        if (other.gameObject.tag == "CameraUp")
+        {
+            Camera.CameraPostion = 4;
+        }
+    }
 }

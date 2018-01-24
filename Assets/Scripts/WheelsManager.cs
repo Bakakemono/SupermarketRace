@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class WheelsManager : MonoBehaviour {
 
-    HingeJoint hingeJoint;
+    HingeJoint hinge;
     JointMotor motor;
+    PlayerControlerTest playerControler;
 
 	// Use this for initialization
 	void Start () {
-        hingeJoint = GetComponent<HingeJoint>();
-        motor = hingeJoint.motor;
-        motor.force = 50;
+        playerControler = FindObjectOfType<PlayerControlerTest>();
+        hinge = gameObject.GetComponent<HingeJoint>();
+        motor = hinge.motor;
+        
     }
 	
 	// Update is called once per frame
 	void Update () {
+        motor.force = 130*playerControler.horizontalInput;
+        hinge.motor = motor;
         
-	}
+    }
 }
