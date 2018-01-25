@@ -28,12 +28,12 @@ public class MainMenuManager : MonoBehaviour {
 
     public void EasyButton()
     {
-
+        SceneManager.LoadScene("EasyLevelScene");
     }
 
     public void MediumButton()
     {
-
+        SceneManager.LoadScene("MediumLevelScene");
     }
 
     public void HardButton()
