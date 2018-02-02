@@ -7,39 +7,56 @@ public class PlayerControlerTest : MonoBehaviour
 
     [Header("Move")]
     [SerializeField]
-    private float PlayerAccelerationForce;
+    private float PlayerAccelerationForce = 100;
     [SerializeField]
-    private float playerMoveSpeed;
+    private float playerMoveSpeed = 1;
     [SerializeField]
-    private float playerMaxSpeed;
+    private float playerMaxSpeed = 30;
     [SerializeField]
-    private float playerForceDrag;
+    private float playerForceDrag = 10;
     [SerializeField]
-    private Vector3 ForceTurn;
+    private Vector3 ForceTurn = new Vector3(0, 5, 0);
+    [SerializeField]
+    private int playerMinSpeedTurn = 50;
+    public float speed;
+    public  int wheelSpeed = 130;
+    private int speedRegularization = 20;
+    
 
+    [Header("Life")]
     [SerializeField]
     public int playerLife = 10;
 
+    [Header("CoolDown")]
+    [SerializeField]
+    private int SetCooldown = 100;
     private int Cooldown = 0;
+    
 
+    [Header("Damage")]
+    [SerializeField]
+    private int nbTurn = 1;
+    [SerializeField]
+    private float stepTurn = 50;
+    private float oneTurn = 360;
+    [SerializeField]
+    private float takeDammageTime = 0.5f;
 
     private Rigidbody rigid;
 
-    public float speed;
-
-    private bool rightTurn;
-    private bool leftTurn;
+    
+    private int perCent = 100;
 
     public float horizontalInput;
 
-    private TargetCamera Camera;
+    private CameraManager Camera;
 
 
     // Use this for initialization
     void Start()
     {
         rigid = GetComponent<Rigidbody>();
-        Camera = FindObjectOfType<TargetCamera>();
+        Camera = FindObjectOfType<CameraManager>();
     }
 
     // Update is called once per frame
@@ -71,19 +88,15 @@ public class PlayerControlerTest : MonoBehaviour
 
         if (transform.InverseTransformDirection(rigid.velocity).z <= playerMaxSpeed /*&& transform.InverseTransformDirection(rigid.velocity).z >= 0*/)
         {
-
-            if (horizontalInput != 0 && speed < 20)
+            
+            if (horizontalInput != 0 && speed < speedRegularization)
             {
-                
-                    transform.Rotate(ForceTurn * horizontalInput * ((50 - transform.InverseTransformDirection(rigid.velocity).z) / 100));
-                
+                transform.Rotate(ForceTurn * horizontalInput * ((playerMinSpeedTurn - transform.InverseTransformDirection(rigid.velocity).z) / perCent));
                 rigid.AddRelativeForce(acceleration);
             }
             else if (horizontalInput != 0)
             {
-                
-                    transform.Rotate(ForceTurn * horizontalInput * ((50 - transform.InverseTransformDirection(rigid.velocity).z) / 100));
-                
+                transform.Rotate(ForceTurn * horizontalInput * ((playerMinSpeedTurn - transform.InverseTransformDirection(rigid.velocity).z) / perCent));
             }
             else
             {
@@ -102,12 +115,13 @@ public class PlayerControlerTest : MonoBehaviour
     }
     private IEnumerator TakeDamage()
     {
-        playerLife--;
-        Cooldown = 100;
-        for (int i = 0; i < 50; i++)
+
+        playerLife--; 
+        Cooldown = SetCooldown;
+        for (int i = 0; i < stepTurn; i++)
         {
-            transform.Rotate(0, 7.2f, 0);
-            yield return new WaitForSeconds(0.01f);
+            transform.Rotate(0, nbTurn * oneTurn/stepTurn, 0);
+            yield return new WaitForSeconds(takeDammageTime/stepTurn);
         }
         
     }

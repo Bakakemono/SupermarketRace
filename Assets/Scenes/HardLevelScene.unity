@@ -5637,11 +5637,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 361026547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 162762cb65c6d63448a4e2b4d1ec7c89, type: 3}
+  m_Script: {fileID: 11500000, guid: 793348cf08cc4434eb88c2e693d48e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 620354391}
-  Target2: {fileID: 1134476955}
+  Player: {fileID: 620354391}
+  PostionCamera: {fileID: 1134476955}
   CameraPostion: 1
 --- !u!4 &362250809 stripped
 Transform:
@@ -26449,6 +26449,26 @@ Prefab:
     - target: {fileID: 4560603179573292, guid: 4aa56330edc0cb747ad54287d37c3664, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114322396786194910, guid: 4aa56330edc0cb747ad54287d37c3664,
+        type: 2}
+      propertyPath: playerMinSpeedTurn
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114322396786194910, guid: 4aa56330edc0cb747ad54287d37c3664,
+        type: 2}
+      propertyPath: NbTurn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114322396786194910, guid: 4aa56330edc0cb747ad54287d37c3664,
+        type: 2}
+      propertyPath: StepTurn
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114322396786194910, guid: 4aa56330edc0cb747ad54287d37c3664,
+        type: 2}
+      propertyPath: TakeDammageTime
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4aa56330edc0cb747ad54287d37c3664, type: 2}

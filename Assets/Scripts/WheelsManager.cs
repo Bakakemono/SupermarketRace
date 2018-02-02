@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class WheelsManager : MonoBehaviour {
 
-    HingeJoint hinge;
-    JointMotor motor;
-    PlayerControlerTest playerControler;
+    private HingeJoint hinge;
+    private JointMotor motor;
+    private PlayerControlerTest playerControler;
+    
+
 
 	// Use this for initialization
 	void Start () {
@@ -18,7 +20,7 @@ public class WheelsManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        motor.force = 130*playerControler.horizontalInput;
+        motor.force = playerControler.wheelSpeed * playerControler.horizontalInput;
         hinge.motor = motor;
         
     }

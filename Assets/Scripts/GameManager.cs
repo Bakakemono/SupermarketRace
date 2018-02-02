@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private Text speedText;
     private const string TEXT_SPEED = " km/h";
+    private float convertSpeed = 3.6f;
 
     [Header("Timer")]
     [SerializeField]
@@ -33,8 +34,12 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-
-        speedText.text = Mathf.Round(playerController.speed * 3.6f) + TEXT_SPEED;
+        float speed = playerController.speed * convertSpeed;
+        if(speed >= 100)
+        {
+            speed = 100;
+        }
+        speedText.text = Mathf.Round(playerController.speed * convertSpeed) + TEXT_SPEED;
         timer -= Time.deltaTime;
         timerText.text = Mathf.Round(timer) + TIMER_TEXT;
         lifeText.text = playerController.playerLife + LIFE_TEXT;
