@@ -110,7 +110,6 @@ public class PlayerControlerTest : MonoBehaviour
             transform.Rotate(0, 7.2f, 0);
             yield return new WaitForSeconds(0.01f);
         }
-        
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -130,14 +129,6 @@ public class PlayerControlerTest : MonoBehaviour
         {
             Camera.CameraPostion = 4;
         }
-        if (other.gameObject.name == "StartTrigger")
-        {
-            SceneManager.LoadScene("StartScene");
-        }
-        if (other.gameObject.name == "ExitTrigger")
-        {
-            Application.Quit();
-        }
-
+        
     }
 }

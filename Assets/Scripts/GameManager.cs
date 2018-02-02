@@ -18,6 +18,11 @@ public class GameManager : MonoBehaviour {
     private float timer = 120.0f;
     private const string TIMER_TEXT = " Seconds left";
 
+    [Header("Life")]
+    [SerializeField]
+    private Text lifeText;
+    private const string LIFE_TEXT = " remaining articles";
+
     private PlayerControlerTest playerController;
 
     // Use this for initialization
@@ -33,7 +38,8 @@ public class GameManager : MonoBehaviour {
         speedText.text = Mathf.Round(playerController.speed * 3.6f) + TEXT_SPEED;
         timer -= Time.deltaTime;
         timerText.text = Mathf.Round(timer) + TIMER_TEXT;
-        if (timer <= 0)
+        lifeText.text = playerController.playerLife + LIFE_TEXT;
+        if (timer <= 0 || playerController.playerLife <= 0)
         {
             SceneManager.LoadScene("GameOver");
         }

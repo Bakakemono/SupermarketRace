@@ -8,6 +8,12 @@ TagManager:
   - EndRightTurn
   - EndLeftTurn
   - BeginLeftTurn
+  - Wall
+  - CameraRight
+  - CameraDown
+  - CameraLeft
+  - CameraUp
+  - Customer
   layers:
   - Default
   - TransparentFX
