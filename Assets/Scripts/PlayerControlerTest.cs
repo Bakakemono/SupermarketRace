@@ -26,11 +26,6 @@ public class PlayerControlerTest : MonoBehaviour
     [Header("Life")]
     [SerializeField]
     public int playerLife = 10;
-
-    [Header("CoolDown")]
-    [SerializeField]
-    private int SetCooldown = 100;
-    private int Cooldown = 0;
     
 
     [Header("Damage")]
@@ -41,6 +36,10 @@ public class PlayerControlerTest : MonoBehaviour
     private float oneTurn = 360;
     [SerializeField]
     private float takeDammageTime = 0.5f;
+    private MeshRenderer playerMeshRenderer;
+    private const float blinkingTime = 0.1f;
+    private bool isTakingDammage = false;
+    private const float blinkigTimePhase = 0.1f;
 
     private Rigidbody rigid;
 
@@ -50,6 +49,7 @@ public class PlayerControlerTest : MonoBehaviour
     public float horizontalInput;
 
     private CameraManager Camera;
+    private GameManager gameManager;
 
 
     // Use this for initialization
@@ -57,16 +57,13 @@ public class PlayerControlerTest : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody>();
         Camera = FindObjectOfType<CameraManager>();
+        playerMeshRenderer = GetComponent<MeshRenderer>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Cooldown--;
-        if (Cooldown <= 0)
-        {
-            Cooldown = 0;
-        }
         speed = transform.InverseTransformDirection(rigid.velocity).z;
         // Création d'un nouveau vecteur de déplacement
         Vector3 acceleration = new Vector3();
@@ -109,22 +106,35 @@ public class PlayerControlerTest : MonoBehaviour
     {
         if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Customer")
         {
-            if (Cooldown == 0)
+            if (!isTakingDammage)
             StartCoroutine(TakeDamage());
+            StartCoroutine(IndicateImmortal());
         }
     }
     private IEnumerator TakeDamage()
     {
-
-        playerLife--; 
-        Cooldown = SetCooldown;
+        isTakingDammage = true;
+        playerLife--;
         for (int i = 0; i < stepTurn; i++)
         {
             transform.Rotate(0, nbTurn * oneTurn/stepTurn, 0);
             yield return new WaitForSeconds(takeDammageTime/stepTurn);
         }
-        
+        yield return new WaitForSeconds(0.3f);
+        isTakingDammage = false;
     }
+
+    private IEnumerator IndicateImmortal()
+    {
+        while (isTakingDammage)
+        {
+            playerMeshRenderer.enabled = false;
+            yield return new WaitForSeconds(blinkigTimePhase);
+            playerMeshRenderer.enabled = true;
+            yield return new WaitForSeconds(blinkigTimePhase);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "CameraDown")
@@ -142,6 +152,10 @@ public class PlayerControlerTest : MonoBehaviour
         if (other.gameObject.tag == "CameraUp")
         {
             Camera.CameraPostion = 4;
+        }
+        if (other.gameObject.tag == "WinLine")
+        {
+            gameManager.Win();
         }
     }
 }

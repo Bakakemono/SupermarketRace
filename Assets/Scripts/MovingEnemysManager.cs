@@ -12,14 +12,11 @@ public class MovingEnemysManager : MonoBehaviour {
 
     [SerializeField]
     private Transform[] transformGameObject;
-    
-
 
     // Use this for initialization
     void Start()
     {
         nextPosition = transformGameObject[Random.Range(0,transformGameObject.Length - 1)];
-
     }
 
     // Update is called once per frame

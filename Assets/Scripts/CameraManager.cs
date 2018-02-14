@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour {
 
-	public Transform Player;
-    public Transform PostionCamera;
+    [Header("PostionCamera")]
+    [SerializeField]
+	private Transform Player;
+    [SerializeField]
+    private Transform PostionCamera;
     public int CameraPostion = 1;
+    private int heightCamera = 3;
+    private int distanceCamera = 7;
+    
 
     // Use this for initialization
     void Start()
@@ -20,22 +26,22 @@ public class CameraManager : MonoBehaviour {
         float step = 40 * Time.deltaTime;
         if (CameraPostion == 1)
         {
-            PostionCamera.position = new Vector3(Player.position.x, Player.position.y + 3, Player.position.z - 7);
+            PostionCamera.position = new Vector3(Player.position.x, Player.position.y + heightCamera, Player.position.z - distanceCamera);
             transform.position = Vector3.MoveTowards(transform.position, PostionCamera.position, step);
         }
         if (CameraPostion == 2)
         {
-            PostionCamera.position = new Vector3(Player.position.x + 7, Player.position.y + 3, Player.position.z);
+            PostionCamera.position = new Vector3(Player.position.x + distanceCamera, Player.position.y + heightCamera, Player.position.z);
             transform.position = Vector3.MoveTowards(transform.position, PostionCamera.position, step);
         }
         if (CameraPostion == 3)
         {
-            PostionCamera.position = new Vector3(Player.position.x - 7, Player.position.y + 3, Player.position.z);
+            PostionCamera.position = new Vector3(Player.position.x - distanceCamera, Player.position.y + heightCamera, Player.position.z);
             transform.position = Vector3.MoveTowards(transform.position, PostionCamera.position, step);
         }
         if (CameraPostion == 4)
         {
-            PostionCamera.position = new Vector3(Player.position.x, Player.position.y + 3, Player.position.z + 7);
+            PostionCamera.position = new Vector3(Player.position.x, Player.position.y + heightCamera, Player.position.z + distanceCamera);
             transform.position = Vector3.MoveTowards(transform.position, PostionCamera.position, step);
         }
         transform.LookAt(Player);

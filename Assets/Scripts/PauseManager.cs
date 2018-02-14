@@ -13,16 +13,18 @@ public class PauseManager : MonoBehaviour {
     private bool IsOnpause = false;
     private int Cooldown = 0;
 
+    private GameManager gameManager;
+
     // Use this for initialization
     void Start () {
-        
+        gameManager = FindObjectOfType<GameManager>();
     }
 	
 	// Update is called once per frame
 	void Update () {
         if(Input.GetButtonDown("Pause") && !IsOnpause && Cooldown == 0)
         {
-            PauseGame();
+            PauseButtom();
             Cooldown = 1;
         }
         if (Input.GetButtonDown("Pause") && IsOnpause && Cooldown == 0)
@@ -36,10 +38,9 @@ public class PauseManager : MonoBehaviour {
         {
             Cooldown = 0;
         }
-        
     }
 
-    public void PauseGame()
+    public void PauseButtom()
     {
         HudPanel.SetActive(false);
         PausePanel.SetActive(true);
@@ -53,5 +54,11 @@ public class PauseManager : MonoBehaviour {
         PausePanel.SetActive(false);
         Time.timeScale = 1.0f;
         IsOnpause = false;
+    }
+
+    public void BackToMenu()
+    {
+        Time.timeScale = 1.0f;
+        gameManager.BackToMenu();
     }
 }

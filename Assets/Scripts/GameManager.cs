@@ -6,46 +6,108 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
+    [Header("TextMode")]
+    [SerializeField]
+    private Text textMode;
+
     [Header("Speed")]
     [SerializeField]
     private Text speedText;
     private const string TEXT_SPEED = " km/h";
     private float convertSpeed = 3.6f;
+    private int maxSpeed = 100;
 
     [Header("Timer")]
-    [SerializeField]
-    private Text timerText;
     [SerializeField]
     private float timer = 120.0f;
     private const string TIMER_TEXT = " Seconds left";
 
     [Header("Life")]
-    [SerializeField]
-    private Text lifeText;
     private const string LIFE_TEXT = " remaining articles";
     private PlayerControlerTest playerController;
+
+    private DataKeeperManager dataKeeperManager;
 
     // Use this for initialization
     void Start()
     {
         playerController = FindObjectOfType<PlayerControlerTest>();
+        dataKeeperManager = FindObjectOfType<DataKeeperManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float speed = playerController.speed * convertSpeed;
-        if(speed >= 100)
+        float speed  = 0;
+        if (playerController != null)
+        speed = playerController.speed * convertSpeed;
+
+        if(speed >= maxSpeed)
         {
-            speed = 100;
+            speed = maxSpeed;
         }
-        speedText.text = Mathf.Round(playerController.speed * convertSpeed) + TEXT_SPEED;
-        timer -= Time.deltaTime;
-        timerText.text = Mathf.Round(timer) + TIMER_TEXT;
-        lifeText.text = playerController.playerLife + LIFE_TEXT;
-        if (timer <= 0 || playerController.playerLife <= 0)
+        if (speed <= 0)
         {
-            SceneManager.LoadScene("GameOver");
+            speed = 0;
         }
+        if(speedText != null)
+        speedText.text = Mathf.Round(speed) + TEXT_SPEED;
+
+        if(dataKeeperManager.timerMode)
+        {
+            timer -= Time.deltaTime;
+            textMode.text = Mathf.Round(timer) + TIMER_TEXT;
+        }
+
+        if (dataKeeperManager.lifesMode)
+        {
+            textMode.text = playerController.playerLife + LIFE_TEXT;
+        }
+
+        if (playerController.playerLife <= 0 && dataKeeperManager.lifesMode)
+        {
+            Lose();
+        }
+
+        if (timer <= 0 && dataKeeperManager.timerMode)
+        {
+            Lose();
+        }
+
+    }
+
+    public void EasyLevel()
+    {
+        SceneManager.LoadScene("EasyLevelScene", LoadSceneMode.Single);
+    }
+
+    public void MediumLevel()
+    {
+        SceneManager.LoadScene("MediumLevelScene", LoadSceneMode.Single);
+    }
+
+    public void HardLevel()
+    {
+        SceneManager.LoadScene("HardLevelScene", LoadSceneMode.Single);
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("StartMenuScene", LoadSceneMode.Single);
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
+    
+    public void Lose()
+    {
+        SceneManager.LoadScene("LoseScene", LoadSceneMode.Single);
+    }
+
+    public void Win()
+    {
+        SceneManager.LoadScene("WinScene", LoadSceneMode.Single);
     }
 }

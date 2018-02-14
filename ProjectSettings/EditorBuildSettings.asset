@@ -18,8 +18,8 @@ EditorBuildSettings:
     path: Assets/Scenes/HardLevelScene.unity
     guid: 30667f8583a6d9440af300bb69a78441
   - enabled: 1
-    path: Assets/Scenes/GameOver.unity
-    guid: 8a1d5cbff0dc29e4884743bc304d03e1
-  - enabled: 1
     path: Assets/Scenes/WinScene.unity
     guid: 1a324227014cebd4c975aa585428ba16
+  - enabled: 1
+    path: Assets/Scenes/LoseScene.unity
+    guid: 8a1d5cbff0dc29e4884743bc304d03e1
