@@ -12,6 +12,8 @@ public class MainMenuManager : MonoBehaviour {
     private GameObject LevelSelectionPanel;
     [SerializeField]
     private GameObject OptionPanel;
+    [SerializeField]
+    private GameObject ScorePanel;
 
     private GameManager gameManager;
     private DataKeeperManager dataKeeperManager;
@@ -49,16 +51,19 @@ public class MainMenuManager : MonoBehaviour {
     public void EasyButton()
     {
         gameManager.EasyLevel();
+        dataKeeperManager.LevelOnGoing = "EasyLevelScene";
     }
 
     public void MediumButton()
     {
         gameManager.MediumLevel();
+        dataKeeperManager.LevelOnGoing = "MediumLevelScene";
     }
 
     public void HardButton()
     {
         gameManager.HardLevel();
+        dataKeeperManager.LevelOnGoing = "HardLevelScene";
     }
 
     public void BackPlayButton()
@@ -73,12 +78,17 @@ public class MainMenuManager : MonoBehaviour {
         OptionPanel.SetActive(false);
     }
 
+    public void BackOScoreButton()
+    {
+        MainMenuPanel.SetActive(true);
+        ScorePanel.SetActive(false);
+    }
+
 
     public void OptionButton()
     {
         MainMenuPanel.SetActive(false);
         OptionPanel.SetActive(true);
-
     }
 
     public void ChooseMode()
@@ -88,7 +98,8 @@ public class MainMenuManager : MonoBehaviour {
 
     public void ScoreButton()
     {
-
+        MainMenuPanel.SetActive(false);
+        ScorePanel.SetActive(true);
     }
 
     public void ExitButton()

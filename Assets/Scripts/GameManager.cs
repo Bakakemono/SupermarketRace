@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private float timer = 120.0f;
     private const string TIMER_TEXT = " Seconds left";
+    private float timerMax;
+    public float playerTimeScore;
 
     [Header("Life")]
     private const string LIFE_TEXT = " remaining articles";
@@ -33,6 +35,8 @@ public class GameManager : MonoBehaviour {
     {
         playerController = FindObjectOfType<PlayerControlerTest>();
         dataKeeperManager = FindObjectOfType<DataKeeperManager>();
+
+        timerMax = timer;
     }
 
     // Update is called once per frame
@@ -79,26 +83,37 @@ public class GameManager : MonoBehaviour {
     public void EasyLevel()
     {
         SceneManager.LoadScene("EasyLevelScene", LoadSceneMode.Single);
+        dataKeeperManager.IsNotHardLevel();
     }
 
     public void MediumLevel()
     {
         SceneManager.LoadScene("MediumLevelScene", LoadSceneMode.Single);
+        dataKeeperManager.IsNotHardLevel();
+
     }
 
     public void HardLevel()
     {
         SceneManager.LoadScene("HardLevelScene", LoadSceneMode.Single);
+        dataKeeperManager.IsHardLevel();
     }
 
     public void BackToMenu()
     {
         SceneManager.LoadScene("StartMenuScene", LoadSceneMode.Single);
+        dataKeeperManager.IsNotHardLevel();
+
     }
 
     public void Exit()
     {
         Application.Quit();
+    }
+
+    public void Retry()
+    {
+        SceneManager.LoadScene(dataKeeperManager.LevelOnGoing, LoadSceneMode.Single);
     }
     
     public void Lose()
@@ -108,6 +123,11 @@ public class GameManager : MonoBehaviour {
 
     public void Win()
     {
+        if (dataKeeperManager.isHardLevel && dataKeeperManager.timerMode)
+        {
+            dataKeeperManager.tmpScore = Mathf.RoundToInt(timerMax - timer);
+            dataKeeperManager.ScoreboardCheck();
+        }
         SceneManager.LoadScene("WinScene", LoadSceneMode.Single);
     }
 }

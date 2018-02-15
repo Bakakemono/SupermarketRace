@@ -50,6 +50,7 @@ public class PlayerControlerTest : MonoBehaviour
 
     private CameraManager Camera;
     private GameManager gameManager;
+    private TutorialManager tutorialManager;
 
 
     // Use this for initialization
@@ -59,6 +60,7 @@ public class PlayerControlerTest : MonoBehaviour
         Camera = FindObjectOfType<CameraManager>();
         playerMeshRenderer = GetComponent<MeshRenderer>();
         gameManager = FindObjectOfType<GameManager>();
+        tutorialManager = FindObjectOfType<TutorialManager>();
     }
 
     // Update is called once per frame
@@ -70,7 +72,7 @@ public class PlayerControlerTest : MonoBehaviour
         Vector3 move = new Vector3();
         
         horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        float verticalInput = Input.GetAxis("SpeedControle");
 
         // Récupération des touches haut et bas
         if (verticalInput >= 0)
@@ -107,8 +109,10 @@ public class PlayerControlerTest : MonoBehaviour
         if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Customer")
         {
             if (!isTakingDammage)
-            StartCoroutine(TakeDamage());
-            StartCoroutine(IndicateImmortal());
+            {
+                StartCoroutine(TakeDamage());
+                StartCoroutine(IndicateImmortal());
+            }
         }
     }
     private IEnumerator TakeDamage()
@@ -157,5 +161,33 @@ public class PlayerControlerTest : MonoBehaviour
         {
             gameManager.Win();
         }
+        if (tutorialManager != null)
+        {
+            if (other.tag == "CanvasTutoOff_1")
+            {
+                tutorialManager.PanelTuto1();
+            }
+            if (other.tag == "CanvasTutoOn_2")
+            {
+                tutorialManager.PanelTuto2On();
+            }
+            if (other.tag == "CanvasTutoOff_2")
+            {
+                tutorialManager.PanelTuto2Off();
+            }
+            if (other.tag == "CanvasTutoOn_3")
+            {
+                tutorialManager.PanelTuto3On();
+            }
+            if (other.tag == "CanvasTutoOff_3")
+            {
+                tutorialManager.PanelTuto3Off();
+            }
+            if (other.tag == "EndLevel")
+            {
+                tutorialManager.PanelTutoEnd();
+            }
+        }
+
     }
 }
