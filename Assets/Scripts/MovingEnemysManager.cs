@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class MovingEnemysManager : MonoBehaviour {
 
+
     private const float minimumValue = 0.01f;
     private Transform nextPosition;
+
+    private SoundManager soundManager;
+    private bool itIsTime = false;
 
     [SerializeField]
     private float movementSpeed;
@@ -13,10 +17,14 @@ public class MovingEnemysManager : MonoBehaviour {
     [SerializeField]
     private Transform[] transformGameObject;
 
+    private PlayerControlerTest playerControler;
+
     // Use this for initialization
     void Start()
     {
         nextPosition = transformGameObject[Random.Range(0,transformGameObject.Length - 1)];
+        soundManager = FindObjectOfType<SoundManager>();
+        playerControler = FindObjectOfType<PlayerControlerTest>();
     }
 
     // Update is called once per frame
@@ -38,17 +46,21 @@ public class MovingEnemysManager : MonoBehaviour {
     {
         nextPosition = transformGameObject[Random.Range(0, transformGameObject.Length)];
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.name == "Player")
+        if (other.gameObject.tag == "Player" && !playerControler.isTakingDammage)
         {
-            collision.transform.SetParent(transform);
+            soundManager.PlayCustomerHit();
+            StartCoroutine(HitDestroy());
+            if(itIsTime)
+                Destroy(gameObject);
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private IEnumerator HitDestroy()
     {
-        collision.transform.SetParent(null);
+        yield return new WaitForSeconds(0.3f);
+        itIsTime = true;
+
     }
 }

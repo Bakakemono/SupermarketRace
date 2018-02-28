@@ -21,6 +21,12 @@ public class PlayerControlerTest : MonoBehaviour
     public float speed;
     public  int wheelSpeed = 130;
     private int speedRegularization = 20;
+    [SerializeField]
+    private PhysicMaterial backWheels;
+    [SerializeField]
+    private GameObject Smoke;
+    private float DriftFriction = 0.1f;
+    private float NormalFriction = 1.0f;
     
 
     [Header("Life")]
@@ -38,7 +44,7 @@ public class PlayerControlerTest : MonoBehaviour
     private float takeDammageTime = 0.5f;
     private MeshRenderer playerMeshRenderer;
     private const float blinkingTime = 0.1f;
-    private bool isTakingDammage = false;
+    public bool isTakingDammage = false;
     private const float blinkigTimePhase = 0.1f;
 
     private Rigidbody rigid;
@@ -51,6 +57,8 @@ public class PlayerControlerTest : MonoBehaviour
     private CameraManager Camera;
     private GameManager gameManager;
     private TutorialManager tutorialManager;
+    private SoundManager soundManager;
+
 
 
     // Use this for initialization
@@ -61,6 +69,7 @@ public class PlayerControlerTest : MonoBehaviour
         playerMeshRenderer = GetComponent<MeshRenderer>();
         gameManager = FindObjectOfType<GameManager>();
         tutorialManager = FindObjectOfType<TutorialManager>();
+        soundManager = FindObjectOfType<SoundManager>();
     }
 
     // Update is called once per frame
@@ -101,20 +110,41 @@ public class PlayerControlerTest : MonoBehaviour
             {
                 rigid.AddRelativeForce(acceleration);
             }
+
+            if (Input.GetKeyDown(KeyCode.Space) == true)
+            {
+                backWheels.staticFriction = DriftFriction;
+                backWheels.dynamicFriction = DriftFriction;
+                Smoke.SetActive(true);
+
+            }
+            else if (Input.GetKeyUp(KeyCode.Space) == true)
+            {
+                backWheels.staticFriction = NormalFriction;
+                backWheels.dynamicFriction = NormalFriction;
+                Smoke.SetActive(false);
+            }
         }
         
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Customer")
+        if (collision.gameObject.tag == "Wall")
         {
             if (!isTakingDammage)
             {
                 StartCoroutine(TakeDamage());
                 StartCoroutine(IndicateImmortal());
+                soundManager.PlayGrandmaHitWall();
             }
         }
     }
+    private IEnumerator PlaySoundCustomers()
+    {
+        yield return new WaitForSeconds(0.4f);
+        soundManager.PlayGrandmaHitCustomers();
+    }
+
     private IEnumerator TakeDamage()
     {
         isTakingDammage = true;
@@ -124,7 +154,7 @@ public class PlayerControlerTest : MonoBehaviour
             transform.Rotate(0, nbTurn * oneTurn/stepTurn, 0);
             yield return new WaitForSeconds(takeDammageTime/stepTurn);
         }
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.6f);
         isTakingDammage = false;
     }
 
@@ -183,11 +213,15 @@ public class PlayerControlerTest : MonoBehaviour
             {
                 tutorialManager.PanelTuto3Off();
             }
-            if (other.tag == "EndLevel")
+        }
+        if (other.gameObject.tag == "Customer")
+        {
+            if (!isTakingDammage)
             {
-                tutorialManager.PanelTutoEnd();
+                StartCoroutine(TakeDamage());
+                StartCoroutine(IndicateImmortal());
+                StartCoroutine(PlaySoundCustomers());
             }
         }
-
-    }
+    }   
 }

@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 65316475049586794}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -769,11 +769,13 @@ MonoBehaviour:
   playerMinSpeedTurn: 50
   speed: 0
   wheelSpeed: 130
+  backWheels: {fileID: 0}
+  Smoke: {fileID: 0}
   playerLife: 10
-  SetCooldown: 100
   nbTurn: 1
   stepTurn: 50
   takeDammageTime: 0.5
+  isTakingDammage: 0
   horizontalInput: 0
 --- !u!114 &114287345710611592
 MonoBehaviour:
@@ -814,7 +816,7 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1120640679936770}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 256739fa39b5bce48b51a103c96072e2, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5000002
@@ -827,7 +829,7 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1201309805347882}
-  m_Material: {fileID: 13400000, guid: a38c25923fea78a4f95ff3f7af6f3196, type: 2}
+  m_Material: {fileID: 13400000, guid: de0a75e901297ed49b0c7ee12bfd350e, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5000002
@@ -840,7 +842,7 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1485893153384014}
-  m_Material: {fileID: 13400000, guid: a38c25923fea78a4f95ff3f7af6f3196, type: 2}
+  m_Material: {fileID: 13400000, guid: 256739fa39b5bce48b51a103c96072e2, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5000002
@@ -853,7 +855,7 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1025384667538118}
-  m_Material: {fileID: 13400000, guid: a38c25923fea78a4f95ff3f7af6f3196, type: 2}
+  m_Material: {fileID: 13400000, guid: de0a75e901297ed49b0c7ee12bfd350e, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5000002

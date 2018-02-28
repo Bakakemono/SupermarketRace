@@ -123,11 +123,12 @@ public class GameManager : MonoBehaviour {
 
     public void Win()
     {
+        SceneManager.LoadScene("WinScene", LoadSceneMode.Single);
+
         if (dataKeeperManager.isHardLevel && dataKeeperManager.timerMode)
         {
             dataKeeperManager.tmpScore = Mathf.RoundToInt(timerMax - timer);
             dataKeeperManager.ScoreboardCheck();
         }
-        SceneManager.LoadScene("WinScene", LoadSceneMode.Single);
     }
 }
