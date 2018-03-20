@@ -82,6 +82,10 @@ public class PlayerControlerTest : MonoBehaviour
         
         horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("SpeedControle");
+        if (verticalInput <= 0)
+        {
+            verticalInput = 0;
+        }
 
         // Récupération des touches haut et bas
         if (verticalInput >= 0)
@@ -111,14 +115,14 @@ public class PlayerControlerTest : MonoBehaviour
                 rigid.AddRelativeForce(acceleration);
             }
 
-            if (Input.GetKeyDown(KeyCode.Space) == true)
+            if (Input.GetAxis("Drift") < 0 && horizontalInput != 0 || Input.GetAxis("Drift1") > 0 && horizontalInput != 0)
             {
                 backWheels.staticFriction = DriftFriction;
                 backWheels.dynamicFriction = DriftFriction;
                 Smoke.SetActive(true);
 
             }
-            else if (Input.GetKeyUp(KeyCode.Space) == true)
+            else
             {
                 backWheels.staticFriction = NormalFriction;
                 backWheels.dynamicFriction = NormalFriction;
