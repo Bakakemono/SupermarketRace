@@ -18,15 +18,14 @@ public class CameraManager : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        StartCoroutine(TimeCheck());
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        //float step = 30 * Time.deltaTime;
-
-        //step = 0.01f /** Time.deltaTime*/;
+        float step = 30 * Time.deltaTime;
+        
 
 
         if (CameraPostion == 1)
@@ -46,42 +45,10 @@ public class CameraManager : MonoBehaviour {
             PostionCamera.position = new Vector3(Player.position.x, Player.position.y + heightCamera, Player.position.z + distanceCamera);
         }
 
-        //if (Vector3.Distance(transform.position, PostionCamera.position) >= 10)
-        //{
-        //    step *= 2;
-        //}
-        
-        //if (Vector3.Distance(transform.position, PostionCamera.position) >= 1)
-        //{
-        //    transform.position = Vector3.MoveTowards(transform.position, PostionCamera.position, step);
-        //}
-
-        //Vector3 position = this.transform.position;
-        //position.x = Mathf.Lerp(this.transform.position.x, PostionCamera.position.x, step);
-        //position.y = Mathf.Lerp(this.transform.position.y, PostionCamera.position.y, step);
-        //position.z = Mathf.Lerp(this.transform.position.z, PostionCamera.position.z, step);
-
-        //this.transform.position = position;
-
+        transform.position = Vector3.MoveTowards(transform.position, PostionCamera.position, step);
         transform.LookAt(Player);
+        
     }
 
-    private IEnumerator TimeCheck()
-    {
-        while(true)
-        {
-            if (Vector3.Distance(transform.position, PostionCamera.position) >= 1)
-            {
-                Vector3 position = this.transform.position;
-                position.x = Mathf.Lerp(this.transform.position.x, PostionCamera.position.x, step);
-                position.y = Mathf.Lerp(this.transform.position.y, PostionCamera.position.y, step);
-                position.z = Mathf.Lerp(this.transform.position.z, PostionCamera.position.z, step);
-
-                this.transform.position = position;
-            }
-
-            yield return new WaitForSeconds(0.01f);
-
-        }
-    }
+    
 }
