@@ -13,13 +13,6 @@ public class CameraManager : MonoBehaviour {
     private int heightCamera = 3;
     private int distanceCamera = 7;
     float step = 0.1f;
-    
-
-    // Use this for initialization
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
