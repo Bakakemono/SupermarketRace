@@ -461,6 +461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e298d0ed6415b6548b5fe3bd46004317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraTransform: {fileID: 0}
   currentSpeed: 0
   modelTransform: {fileID: 1723647528}
 --- !u!54 &1304572938
